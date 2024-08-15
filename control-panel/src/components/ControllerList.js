@@ -3,6 +3,7 @@ import ControllerService from '../services/controllerService';
 import { Button, Table, Container, Alert, Pagination } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import AlertMessage from './AlertMessage';
+import './Pagination.css';
 
 const ControllerList = () => {
     const [controllers, setControllers] = useState([]);
@@ -87,7 +88,7 @@ const ControllerList = () => {
         <Container className="my-5">
             <h2 className="text-center mb-4">Контроллеры</h2>
             <Link to="/add-controller">
-                <Button variant="primary" className="mb-3">Добавить контроллер</Button>
+                <Button variant="dark" className="mb-3">Добавить контроллер</Button>
             </Link>
 
             <AlertMessage
@@ -122,7 +123,7 @@ const ControllerList = () => {
                                         <td>
                                             <div className="d-flex justify-content-center">
                                                 <Link to={`/edit-controller/${controller.id}`}>
-                                                    <Button variant="primary" className="me-2">Редактировать</Button>
+                                                    <Button variant="dark" className="me-2">Редактировать</Button>
                                                 </Link>
                                                 <Button variant="danger" onClick={() => handleDelete(controller.id)}>Удалить</Button>
                                             </div>
@@ -148,7 +149,7 @@ const ControllerList = () => {
                                 <option value={100}>100</option>
                             </select>
                         </label>
-                        <Pagination className="justify-content-center">
+                        <Pagination className="justify-content-center dark-pagination">
                             {Array.from({ length: totalPages }, (_, i) => (
                                 <Pagination.Item
                                     key={i}

@@ -3,6 +3,7 @@ import EventTypeService from '../services/eventTypeService';
 import { Button, Table, Container, Alert, Pagination } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import AlertMessage from './AlertMessage';
+import './Pagination.css';
 
 const EventTypeList = () => {
     const [eventTypes, setEventTypes] = useState([]);
@@ -88,9 +89,9 @@ const EventTypeList = () => {
         <Container className="my-5">
             <h2 className="text-center mb-4">Типы событий</h2>
             <Link to="/add-event-type">
-                <Button variant="primary" className="mb-3">Добавить тип события</Button>
+                <Button variant="dark" className="mb-3">Добавить тип события</Button>
             </Link>
-            <Button onClick={() => handleGenerate()} variant="primary" className="ms-3 mb-3">Сгенерировать стандартные события </Button>
+            <Button onClick={() => handleGenerate()} variant="dark" className="ms-3 mb-3">Сгенерировать стандартные события </Button>
             <AlertMessage
                 variant="danger"
                 message={error}
@@ -123,7 +124,7 @@ const EventTypeList = () => {
                                         <td>
                                             <div className="d-flex justify-content-center">
                                                 <Link to={`/edit-event-type/${eventType.id}`}>
-                                                    <Button variant="primary" className="me-2">Редактировать</Button>
+                                                    <Button variant="dark" className="me-2">Редактировать</Button>
                                                 </Link>
                                                 <Button variant="danger" onClick={() => handleDelete(eventType.id)}>Удалить</Button>
                                             </div>
@@ -149,12 +150,13 @@ const EventTypeList = () => {
                                 <option value={100}>100</option>
                             </select>
                         </label>
-                        <Pagination className="justify-content-center">
+                        <Pagination className="justify-content-center dark-pagination">
                             {Array.from({ length: totalPages }, (_, i) => (
                                 <Pagination.Item
                                     key={i}
                                     onClick={() => handlePageChange(i)}
                                     active={i === page}
+                                    className="dark-pagination-item"
                                 >
                                     {i + 1}
                                 </Pagination.Item>

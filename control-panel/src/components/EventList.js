@@ -3,6 +3,7 @@ import EventService from '../services/eventService';
 import { Table, Button, Container, Pagination, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import AlertMessage from './AlertMessage';
+import './Pagination.css';
 
 const EventList = () => {
     const [events, setEvents] = useState([]);
@@ -106,11 +107,11 @@ const EventList = () => {
                     value={searchTerm}
                     onChange={handleSearchChange}
                 />
-                <Button variant="primary" onClick={handleSearchClick} className="ms-2">Найти</Button>
+                <Button variant="dark" onClick={handleSearchClick} className="ms-2">Найти</Button>
                 <Button variant="secondary" onClick={handleClearClick} className="ms-2">Очистить</Button>
             </div>
             <Link to="/add-event">
-                <Button variant="primary" className="mb-3">Добавить событие</Button>
+                <Button variant="dark" className="mb-3">Добавить событие</Button>
             </Link>
 
             <AlertMessage
@@ -165,7 +166,7 @@ const EventList = () => {
                                         <td>
                                             <div className="d-flex justify-content-center">
                                                 <Link to={`/edit-event/${event.id}`}>
-                                                    <Button variant="primary" className="me-2">Редактировать</Button>
+                                                    <Button variant="dark" className="me-2">Редактировать</Button>
                                                 </Link>
                                                 <Button variant="danger" onClick={() => deleteEvent(event.id)}>Удалить</Button>
                                             </div>
@@ -191,12 +192,13 @@ const EventList = () => {
                                 <option value={100}>100</option>
                             </select>
                         </label>
-                        <Pagination>
+                        <Pagination className="justify-content-center dark-pagination">
                             {Array.from({ length: totalPages }, (_, i) => (
                                 <Pagination.Item
                                     key={i}
                                     onClick={() => handlePageChange(i)}
                                     active={i === page}
+                                    className="dark-pagination-item"
                                 >
                                     {i + 1}
                                 </Pagination.Item>

@@ -51,7 +51,7 @@ const EventTypeForm = () => {
     };
 
     return (
-        <Container>
+        <Container className="my-5">
             <h2>{id ? 'Редактировать тип события' : 'Добавить тип события'}</h2>
             <AlertMessage 
                 variant="danger" 
@@ -82,7 +82,7 @@ const EventTypeForm = () => {
                 </Form.Group>
                 <Row className="mt-5">
                     <Col className="d-flex justify-content-start">
-                        <Button variant="primary" type="submit" className="w-25 w-md-100">
+                        <Button variant="dark" type="submit" className="w-25 w-md-100">
                             {id ? 'Обновить' : 'Создать'}
                         </Button>
                     </Col>

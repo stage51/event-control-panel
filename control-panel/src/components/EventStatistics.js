@@ -84,7 +84,7 @@ const EventStatistics = () => {
                                 onChange={handleEndDateChange}
                             />
                         </Form.Group>
-                        <Button variant="primary" className="mt-3" onClick={handleSearch} disabled={loading}>
+                        <Button variant="dark" className="mt-3" onClick={handleSearch} disabled={loading}>
                             {loading ? 'Загрузка...' : 'Обновить'}
                         </Button>
                     </Form>
