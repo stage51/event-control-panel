@@ -4,6 +4,7 @@ import LoginModal from './LoginModal';
 import RegisterModal from './RegisterModal';
 import { Nav } from 'react-bootstrap';
 import authService from '../services/authService';
+import './Sidebar.css';
 
 const Auth = () => {
     const [showLogin, setShowLogin] = useState(false);
@@ -28,16 +29,16 @@ const Auth = () => {
             <Nav className="flex-column p-3">
             {!token ? (
             <>
-                <Nav.Link as={Button} className="justify-content-start d-flex text-white sidebar-link" variant="link" onClick={() => setShowLogin(true)}>
+                <Nav.Link as={Button} className="justify-content-start d-flex text-white sidebar-button" variant="link" onClick={() => setShowLogin(true)}>
                 Войти в аккаунт
                 </Nav.Link>
-                <Nav.Link as={Button} className="justify-content-start d-flex text-white sidebar-link" variant="link" onClick={() => setShowRegister(true)}>
+                <Nav.Link as={Button} className="justify-content-start d-flex text-white sidebar-button" variant="link" onClick={() => setShowRegister(true)}>
                 Регистрация
                 </Nav.Link>
             </>
             ) : (
             <>
-                <Nav.Link as={Button} className="justify-content-start d-flex text-white sidebar-link" variant="link" onClick={handleLogout}>
+                <Nav.Link as={Button} className="justify-content-start d-flex text-white sidebar-button" variant="link" onClick={handleLogout}>
                 Выйти
                 </Nav.Link>
             </>
