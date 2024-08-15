@@ -68,7 +68,8 @@ const EventTypeList = () => {
     };
 
     const handleDelete = (id) => {
-        EventTypeService.deleteEventType(id)
+        if (window.confirm('Вы уверены, что хотите удалить этот элемент?')) {
+            EventTypeService.deleteEventType(id)
             .then(() => {
                 loadEventTypes();
             })
@@ -76,6 +77,7 @@ const EventTypeList = () => {
                 console.error('Error deleting event type:', error);
                 setError('Ошибка при удалении типа события. Попробуйте еще раз позже.');
             });
+        }
     };
     const handleGenerate = () => {
         EventTypeService.generateEventTypes()

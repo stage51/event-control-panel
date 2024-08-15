@@ -1,0 +1,7 @@
+.sidebar-link {
+    transition: background-color 0.5s all ease;
+}
+
+.sidebar-link:hover {
+    background-color: #0f0f0f;
+}

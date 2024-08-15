@@ -60,7 +60,7 @@ const ControllerList = () => {
     };
 
     const handleDelete = (id) => {
-        if (window.confirm('Are you sure you want to delete this controller?')) {
+        if (window.confirm('Вы уверены, что хотите удалить элемент?')) {
             setLoading(true);
             ControllerService.deleteController(id)
                 .then(() => {
