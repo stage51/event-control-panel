@@ -13,6 +13,7 @@ const EventTypeList = () => {
     const [totalPages, setTotalPages] = useState(0);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [token, setToken] = useState(localStorage.getItem('token'));
 
     useEffect(() => {
         loadEventTypes();
@@ -90,10 +91,12 @@ const EventTypeList = () => {
     return (
         <Container className="my-5">
             <h2 className="text-center mb-4">Типы событий</h2>
+            {token && (<>
             <Link to="/add-event-type">
                 <Button variant="dark" className="mb-3">Добавить тип события</Button>
             </Link>
             <Button onClick={() => handleGenerate()} variant="dark" className="ms-3 mb-3">Сгенерировать стандартные события </Button>
+            </>)}
             <AlertMessage
                 variant="danger"
                 message={error}
@@ -114,7 +117,9 @@ const EventTypeList = () => {
                                 <th onClick={() => handleSortChange('comment')}>
                                     Комментарий {getSortIndicator('comment')}
                                 </th>
+                                {token && (
                                 <th>Действия</th>
+                                )}
                             </tr>
                         </thead>
                         <tbody>
@@ -123,6 +128,7 @@ const EventTypeList = () => {
                                     <tr key={eventType.id}>
                                         <td>{eventType.eventCode}</td>
                                         <td>{eventType.comment}</td>
+                                        {token && (
                                         <td>
                                             <div className="d-flex justify-content-center">
                                                 <Link to={`/edit-event-type/${eventType.id}`}>
@@ -131,6 +137,7 @@ const EventTypeList = () => {
                                                 <Button variant="danger" onClick={() => handleDelete(eventType.id)}>Удалить</Button>
                                             </div>
                                         </td>
+                                        )}
                                     </tr>
                                 ))
                             ) : (

@@ -13,6 +13,7 @@ const ControllerList = () => {
     const [totalPages, setTotalPages] = useState(0);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [token, setToken] = useState(localStorage.getItem('token'));
 
     useEffect(() => {
         loadControllers();
@@ -87,10 +88,11 @@ const ControllerList = () => {
     return (
         <Container className="my-5">
             <h2 className="text-center mb-4">Контроллеры</h2>
+            {token && (<>
             <Link to="/add-controller">
                 <Button variant="dark" className="mb-3">Добавить контроллер</Button>
             </Link>
-
+            </>)}
             <AlertMessage
                 variant="danger"
                 message={error}
@@ -111,7 +113,9 @@ const ControllerList = () => {
                                 <th onClick={() => handleSortChange('guid')}>
                                     GUID {getSortIndicator('guid')}
                                 </th>
+                                {token && (
                                 <th>Действия</th>
+                                )}
                             </tr>
                         </thead>
                         <tbody>
@@ -120,6 +124,7 @@ const ControllerList = () => {
                                     <tr key={controller.id}>
                                         <td>{controller.serialNumber}</td>
                                         <td>{controller.guid}</td>
+                                        {token && (
                                         <td>
                                             <div className="d-flex justify-content-center">
                                                 <Link to={`/edit-controller/${controller.id}`}>
@@ -128,6 +133,7 @@ const ControllerList = () => {
                                                 <Button variant="danger" onClick={() => handleDelete(controller.id)}>Удалить</Button>
                                             </div>
                                         </td>
+                                        )}
                                     </tr>
                                 ))
                             ) : (

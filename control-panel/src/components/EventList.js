@@ -15,6 +15,7 @@ const EventList = () => {
     const [error, setError] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
     const [shouldSearch, setShouldSearch] = useState(true);
+    const [token, setToken] = useState(localStorage.getItem('token'));
 
     useEffect(() => {
         loadEvents();
@@ -149,7 +150,9 @@ const EventList = () => {
                                 <th onClick={() => handleSortChange('comment')}>
                                     Комментарий {getSortIndicator('comment')}
                                 </th>
+                                {token && (
                                 <th>Действия</th>
+                                )}
                             </tr>
                         </thead>
                         <tbody>
@@ -163,6 +166,7 @@ const EventList = () => {
                                         <td>{new Date(event.eventTime).toLocaleString()}</td>
                                         <td>{new Date(event.serverTime).toLocaleString()}</td>
                                         <td>{event.comment}</td>
+                                        {token && (
                                         <td>
                                             <div className="d-flex justify-content-center">
                                                 <Link to={`/edit-event/${event.id}`}>
@@ -171,6 +175,7 @@ const EventList = () => {
                                                 <Button variant="danger" onClick={() => deleteEvent(event.id)}>Удалить</Button>
                                             </div>
                                         </td>
+                                        )}
                                     </tr>
                                 ))
                             ) : (
