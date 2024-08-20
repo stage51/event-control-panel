@@ -46,7 +46,7 @@ function App() {
         const checkServerHealth = async () => {
             try {
                 const response = await Promise.race([
-                    fetch('http://java_app:8080/api/v1/health'),
+                    fetch('http://localhost:8080/api/v1/health'),
                     new Promise((_, reject) =>
                         setTimeout(() => reject(new Error('Timeout')), 5000)
                     )

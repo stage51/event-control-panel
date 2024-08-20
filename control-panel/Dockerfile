@@ -10,12 +10,11 @@ COPY . .
 
 RUN npm run build
 
-FROM httpd:alpine
+FROM nginx:alpine
 
-COPY ./public/.htaccess /usr/local/apache2/htdocs/.htaccess
-
-COPY --from=build /app/build /usr/local/apache2/htdocs/
+COPY --from=build /app/build /usr/share/nginx/html
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 
-CMD ["httpd-foreground"]
+CMD ["nginx", "-g", "daemon off;"]

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://java_app:8080/api/v1/controllers';
+const API_URL = 'http://localhost:8080/api/v1/controllers';
 
 class ControllerService {
     getAllControllers(page, size, sort) {
