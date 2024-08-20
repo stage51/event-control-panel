@@ -5,18 +5,27 @@ import authService from '../services/authService';
 const RegisterModal = ({ show, handleClose }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
   const handleRegister = async (e) => {
     e.preventDefault();
+
+    if (password !== confirmPassword) {
+      setError('Пароли не совпадают. Попробуйте еще раз.');
+      return;
+    }
+
     try {
       await authService.register(username, password);
-      setSuccess('Registration successful. You can now login.');
+      setSuccess('Регистрация успешна. Теперь вы можете войти.');
       setUsername('');
       setPassword('');
+      setConfirmPassword('');
+      setError('');
     } catch (err) {
-      setError('Registration failed. Try again.');
+      setError('Регистрация не удалась. Попробуйте еще раз.');
     }
   };
 
@@ -46,6 +55,16 @@ const RegisterModal = ({ show, handleClose }) => {
               placeholder="Введите пароль"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formConfirmPassword">
+            <Form.Label>Подтверждение пароля</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Повторите пароль"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
           </Form.Group>

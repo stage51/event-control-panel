@@ -16,7 +16,7 @@ const LoginModal = ({ show, handleClose, onLoginSuccess }) => {
       onLoginSuccess(token);
       handleClose();
     } catch (err) {
-      setError('Invalid username or password');
+      setError('Неправильное имя пользователя или пароль.');
     }
   };
 

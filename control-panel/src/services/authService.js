@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = "http://localhost:8080/api/v1";
+const API_URL = "http://java_app:8080/api/v1";
 
 const authService = {
   login: (username, password) => {
@@ -14,7 +14,7 @@ const authService = {
   logout: () => {
     return axios.post(`${API_URL}/logout`).finally(() => {
         authService.setToken(null);
-    });;
+    });
   },
 
   setToken: (token) => {

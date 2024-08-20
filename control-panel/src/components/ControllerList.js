@@ -113,6 +113,9 @@ const ControllerList = () => {
                                 <th onClick={() => handleSortChange('guid')}>
                                     GUID {getSortIndicator('guid')}
                                 </th>
+                                <th onClick={() => handleSortChange('vehicleNumber')}>
+                                    Гос номер {getSortIndicator('vehicleNumber')}
+                                </th>
                                 {token && (
                                 <th>Действия</th>
                                 )}
@@ -124,6 +127,7 @@ const ControllerList = () => {
                                     <tr key={controller.id}>
                                         <td>{controller.serialNumber}</td>
                                         <td>{controller.guid}</td>
+                                        <td>{controller.vehicleNumber}</td>
                                         {token && (
                                         <td>
                                             <div className="d-flex justify-content-center">

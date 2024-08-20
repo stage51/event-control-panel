@@ -80,6 +80,15 @@ const ControllerForm = () => {
                         onChange={handleChange}
                     />
                 </Form.Group>
+                <Form.Group className='mt-3' controlId="vehicleNumber">
+                    <Form.Label>Гос номер</Form.Label>
+                    <Form.Control
+                        type="text"
+                        name="vehicleNumber"
+                        value={controller.vehicleNumber}
+                        onChange={handleChange}
+                    />
+                </Form.Group>
                 <Row className="mt-5">
                     <Col className="d-flex justify-content-start">
                         <Button variant="dark" type="submit" className="w-25 w-md-100">

@@ -1,15 +1,28 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8080/api/v1/events';
+const API_URL = 'http://java_app:8080/api/v1/events';
 
 class EventService {
-    getAllEvents(page, size, sort, contains) {
+    getAllEvents(
+        page, 
+        size, 
+        sort, 
+        eventTypeComment,
+        controllerSerialNumber,
+        comment,
+        controllerVehicleNumber, 
+        startDate, endDate) {
         return axios.get(API_URL, {
             params: {
                 page,
                 size,
                 sortBy: sort,
-                contains
+                eventTypeComment,
+                controllerSerialNumber,
+                comment,
+                controllerVehicleNumber,
+                startDate,
+                endDate
             }
         });
     }
@@ -29,11 +42,11 @@ class EventService {
     deleteEvent(id) {
         return axios.delete(`${API_URL}/${id}`);
     }
-    statistic(start, end) {
+    statistic(startDate, endDate) {
         return axios.get(`${API_URL}/statistics`, {
             params: {
-                start,
-                end
+                startDate,
+                endDate
             }
         })
     }

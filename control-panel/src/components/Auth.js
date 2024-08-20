@@ -14,12 +14,14 @@ const Auth = () => {
         const savedToken = localStorage.getItem('token');
         if (savedToken) {
             setToken(savedToken);
+            authService.setToken(savedToken);
         }
     }, []);
 
     const handleLoginSuccess = (token) => {
         localStorage.setItem('token', token);
         setToken(token);
+        authService.setToken(token);
         window.location.reload();
     };
 
@@ -33,6 +35,7 @@ const Auth = () => {
             console.error('Logout failed', err);
         }
     };
+
     return (
         <div className="app-container">
             <Nav className="flex-column p-3">

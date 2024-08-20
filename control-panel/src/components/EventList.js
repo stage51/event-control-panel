@@ -10,10 +10,15 @@ const EventList = () => {
     const [page, setPage] = useState(0);
     const [size, setSize] = useState(10);
     const [sort, setSort] = useState('eventTime,desc');
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
     const [totalPages, setTotalPages] = useState(0);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
-    const [searchTerm, setSearchTerm] = useState('');
+    const [eventTypeComment, setEventTypeComment] = useState('');
+    const [controllerSerialNumber, setControllerSerialNumber] = useState('');
+    const [comment, setComment] = useState('');
+    const [controllerVehicleNumber, setControllerVehicleNumber] = useState('');
     const [shouldSearch, setShouldSearch] = useState(true);
     const [token, setToken] = useState(localStorage.getItem('token'));
 
@@ -26,7 +31,7 @@ const EventList = () => {
 
     const loadEvents = () => {
         setLoading(true);
-        EventService.getAllEvents(page, size, sort, searchTerm)
+        EventService.getAllEvents(page, size, sort, eventTypeComment, controllerSerialNumber, comment, controllerVehicleNumber, startDate, endDate)
             .then(response => {
                 console.log('Full response:', response);
                 if (response.data && Array.isArray(response.data.content)) {
@@ -46,7 +51,7 @@ const EventList = () => {
                 setLoading(false);
             });
     };
-
+    
     const deleteEvent = (id) => {
         EventService.deleteEvent(id)
             .then(() => {
@@ -83,8 +88,28 @@ const EventList = () => {
         return '';
     };
 
-    const handleSearchChange = (e) => {
-        setSearchTerm(e.target.value);
+    const handleStartDateChange = (e) => {
+        setStartDate(e.target.value);
+    };
+
+    const handleEndDateChange = (e) => {
+        setEndDate(e.target.value);
+    };
+
+    const handleEventTypeCommentChange = (e) => {
+        setEventTypeComment(e.target.value);
+    };
+
+    const handleControllerSerialNumberChange = (e) => {
+        setControllerSerialNumber(e.target.value);
+    };
+
+    const handleCommentChange = (e) => {
+        setComment(e.target.value);
+    };
+
+    const handleControllerVehicleNumberChange = (e) => {
+        setControllerVehicleNumber(e.target.value);
     };
 
     const handleSearchClick = () => {
@@ -93,7 +118,10 @@ const EventList = () => {
     };
 
     const handleClearClick = () => {
-        setSearchTerm('');
+        setEventTypeComment('');
+        setControllerSerialNumber('');
+        setComment('');
+        setControllerVehicleNumber('');
         setPage(0);
         setShouldSearch(true);
     };
@@ -101,15 +129,57 @@ const EventList = () => {
     return (
         <Container className="my-5">
             <h2 className="text-center mb-4">События</h2>
-            <div className="d-flex mb-3">
-                <Form.Control
-                    type="text"
-                    placeholder="Поиск по событиям"
-                    value={searchTerm}
-                    onChange={handleSearchChange}
-                />
-                <Button variant="dark" onClick={handleSearchClick} className="ms-2">Найти</Button>
-                <Button variant="secondary" onClick={handleClearClick} className="ms-2">Очистить</Button>
+            <div className="mb-3">
+                <div className="d-flex">
+                    <Form.Control
+                        type="text"
+                        placeholder="Комментарий типа события"
+                        value={eventTypeComment}
+                        onChange={handleEventTypeCommentChange}
+                        className="me-2 flex-grow-1"
+                    />
+                    <Form.Control
+                        type="text"
+                        placeholder="Серийный номер контроллера"
+                        value={controllerSerialNumber}
+                        onChange={handleControllerSerialNumberChange}
+                        className="me-2 flex-grow-1"
+                    />
+                    <Form.Control
+                        type="text"
+                        placeholder="Комментарий"
+                        value={comment}
+                        onChange={handleCommentChange}
+                        className="me-2 flex-grow-1"
+                    />
+                    <Form.Control
+                        type="text"
+                        placeholder="Гос номер контроллера"
+                        value={controllerVehicleNumber}
+                        onChange={handleControllerVehicleNumberChange}
+                        className="me-2 flex-grow-1"
+                    />
+                    <Button variant="dark" onClick={handleSearchClick} className="me-2">Найти</Button>
+                    <Button variant="secondary" onClick={handleClearClick}>Очистить</Button>
+                </div>
+                <Form className="d-flex flex-wrap mt-3 w-100">
+                    <Form.Group controlId="startDate" className="flex-grow-1 me-2">
+                        <Form.Label>Начальная дата</Form.Label>
+                        <Form.Control
+                            type="datetime-local"
+                            value={startDate}
+                            onChange={handleStartDateChange}
+                        />
+                    </Form.Group>
+                    <Form.Group controlId="endDate" className="flex-grow-1">
+                        <Form.Label>Конечная дата</Form.Label>
+                        <Form.Control
+                            type="datetime-local"
+                            value={endDate}
+                            onChange={handleEndDateChange}
+                        />
+                    </Form.Group>
+                </Form>
             </div>
             <Link to="/add-event">
                 <Button variant="dark" className="mb-3">Добавить событие</Button>
@@ -141,6 +211,9 @@ const EventList = () => {
                                 <th onClick={() => handleSortChange('controller.serialNumber')}>
                                     Контроллер (Серийный номер) {getSortIndicator('controller.serialNumber')}
                                 </th>
+                                <th onClick={() => handleSortChange('controller.vehicleNumber')}>
+                                    Контроллер (Гос номер) {getSortIndicator('controller.vehicleNumber')}
+                                </th>
                                 <th onClick={() => handleSortChange('eventTime')}>
                                     Время события {getSortIndicator('eventTime')}
                                 </th>
@@ -163,6 +236,7 @@ const EventList = () => {
                                         <td>{event.eventType.comment}</td>
                                         <td>{event.controller.guid}</td>
                                         <td>{event.controller.serialNumber}</td>
+                                        <td>{event.controller.vehicleNumber}</td>
                                         <td>{new Date(event.eventTime).toLocaleString()}</td>
                                         <td>{new Date(event.serverTime).toLocaleString()}</td>
                                         <td>{event.comment}</td>
